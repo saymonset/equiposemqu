@@ -1,0 +1,61 @@
+
+<div class="row">
+    <div class="col-12">
+      <ul class="nav nav-underline">
+        <li class="nav-item">
+          <a class="{{classEnCurso}}"
+             (click)="activar( '1' )"
+          >Equipos</a>
+        </li>
+        <li class="nav-item">
+          <a class="{{classResuelta}}"
+             (click)="activar( '2' )"
+          >Historico</a>
+        </li>
+      </ul>
+    </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-dark"
+                type="button"
+                [disabled]="isAdmin"
+                (click)="onNuevo()">Nuevo equipo</button>
+      </div>
+  </div>
+  <div *ngIf="equipos.length === 0; else table" class="alert alert-warning text-center">
+      No hay equipos que mostrar
+    </div>
+  
+    <ng-template #table>
+      <div class="row">
+  
+      </div>
+      <div class="row">
+  
+          <div class="col-12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th># ping</th>
+                  <th>Nombre</th>
+                  <th>Estado</th>
+  
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+  
+                  *ngFor="let equipo of equipos; let i = index">
+                  <td (click)="emitCharacter(equipo._id)"><a  class="link-primary">Ping #{{ i + 1 }}</a></td>
+                  <td>{{  equipo.nombre}}</td>
+  
+                  <td *ngIf="isAdmin"  (click)="onEstado(equipo._id)"><a  class="link-primary">{{ equipo.ipv4 }}</a></td>
+                  <td *ngIf="!isAdmin" >{{ equipo.ipv4 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+  
+  
+    </ng-template>
+  
